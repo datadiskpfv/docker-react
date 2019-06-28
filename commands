@@ -1,0 +1,9 @@
+docker build -f Dockerfile.dev -t frontend .
+
+docker run -p 3000:3000 frontend
+
+docker run -p 3000:3000 -v /app/node_modules -v C:\docker\frontend:/app frontend
+
+docker run -it frontend npm run test
+
+FOR /f "tokens=*" %i IN ('docker ps -q') DO docker stop %i

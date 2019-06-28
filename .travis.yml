@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t datadiskpfv/docker-react -f Dockerfile.dev .
+
+script:
+  # added -e CI=true to docker command to automatically exit after running npm test
+  - docker run -e CI=true datadiskpfv/docker-react npm run test -- --coverage
+
+#deploy:
+#  provider: elasticbeanstalk
+#  region: "????"
+#  app: "docker-react"
+#  env: "Docker-react-env"
+#  bucket_name: "get bucket name based on region name"
+#  bucket_path: "docker-react"
+#  on:
+#    branch: master
+#  access_key_id: $AWS_ACCESS_KEY
+#  secret_access_key: "$AWS_SECRET_KEY"
